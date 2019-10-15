@@ -25,13 +25,12 @@ struct ContentView: View {
         return amountPerPerson
     }
     
-    var totalAmount: Double {
+    var totalAmount: String {
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
         
         let tipValue = orderAmount / 100 * tipSelection
-        let grandTotal = orderAmount + tipValue
-        return grandTotal
+        return "\(orderAmount) + \(tipValue)"
     }
 
     var body: some View {
@@ -41,7 +40,7 @@ struct ContentView: View {
                     TextField("Amount", text: $checkAmount)
                         .keyboardType(.decimalPad)
                     
-                    Section(header: Text("How much tip do ypu want to leave?")) {
+                    Section(header: Text("How much tip do you want to leave?")) {
                         Picker("Tip percentage", selection: $tipPercentage) {
                             ForEach(0 ..< tipPercentages.count) {
                                 Text("\(self.tipPercentages[$0])")
@@ -59,7 +58,7 @@ struct ContentView: View {
                 }
                 
                 Section (header: Text("Total Amount")){
-                    Text("$\(totalAmount, specifier: "%.2f")")
+                    Text(totalAmount)
                 }  // Challenge
                 
                 Section (header: Text("Amount per person")){
