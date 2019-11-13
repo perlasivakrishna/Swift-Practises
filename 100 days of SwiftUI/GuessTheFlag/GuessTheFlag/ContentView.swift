@@ -33,11 +33,7 @@ struct ContentView: View {
                     Button(action: {
                         self.flagTapped(number)
                     }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
-                            .shadow(color: .black, radius: 2)
+                        FlagImage(name: self.countries[number])
                     }
                 }
                 Text("Your score is \(score)")
@@ -71,6 +67,31 @@ struct ContentView: View {
             scoreMeesage = "That's the flag of \(countries[number])"
         }
         showingScore = true
+    }
+}
+
+struct FlagImage: View {
+    var name: String
+    
+    var body: some View {
+        Image(name)
+            .renderingMode(.original)
+        .flagStyle()
+    }
+}
+
+extension View {
+    func flagStyle() -> some View {
+        self.modifier(Flag())
+    }
+}
+
+struct Flag: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+            .shadow(color: .black, radius: 2)
     }
 }
 

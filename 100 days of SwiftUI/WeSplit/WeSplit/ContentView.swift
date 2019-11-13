@@ -18,7 +18,6 @@ struct ContentView: View {
         let peopleCount = Double(numberOfPeople + 2)
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
-        
         let tipValue = orderAmount / 100 * tipSelection
         let grandTotal = orderAmount + tipValue
         let amountPerPerson = grandTotal / peopleCount
@@ -56,9 +55,9 @@ struct ContentView: View {
                         }
                     }
                 }
-                
                 Section (header: Text("Total Amount")){
                     Text(totalAmount)
+                        .foregroundColor( tipPercentage == 4 ? .red : .black)
                 }  // Challenge
                 
                 Section (header: Text("Amount per person")){
